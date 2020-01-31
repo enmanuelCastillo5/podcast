@@ -4,7 +4,7 @@ import Link from 'next/link';
 const PodcastList = ({ audioClips }) => (
   <div>
     {audioClips.map((clip) => (
-    <Link href={`/podcast?id=${clip.id}`} prefetch key={clip.id}>
+    <Link href={`/podcast?id=${clip.id}`} key={clip.id}>
       <a className="podcast">
         <h3>{clip.title}</h3>
         <div className="meta">

@@ -4,7 +4,7 @@ import Link from 'next/link';
 const ChannelGrid = ({ channel }) => (
   <div className="channels">
     { channel.map((channel) => (
-      <Link href={`/channel?id=${ channel.id }`} prefetch key={channel.id}>
+      <Link href={`/channel?id=${ channel.id }`} key={channel.id}>
         <a className="channel">
           <img src={ channel.urls.logo_image.original } alt=""/>
           <h2>{ channel.title }</h2>
