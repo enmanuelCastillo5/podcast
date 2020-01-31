@@ -1,5 +1,8 @@
 import 'isomorphic-fetch'
 import Link from 'next/link'
+
+import Layout from '../components/layout';
+import ChannelGrid from '../components/channel-grid';
 export default class extends React.Component {
 
     static async getInitialProps() {
@@ -15,7 +18,7 @@ export default class extends React.Component {
 
         return(
 
-        <div>
+        <>
          <header>PodCasts</header>
             <div className="channels">
                 { channels.map((channel) => (
@@ -68,7 +71,7 @@ export default class extends React.Component {
                 background: white;
             }
             `}</style>
-        </div>
+        </>
         )
     }
 }

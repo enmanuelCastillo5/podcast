@@ -1,22 +1,34 @@
-export default class extends React.Component {
+
+import React, { Component } from 'react';
+import Link from 'next/link';
+
+import Layout from '../components/layout';
+import PodcastList from '../components/podcast-list';
+import ChannelGrid from '../components/channel-grid';
+
+export default class extends Component {
 
     static async getInitialProps({ query }) {
       let idChannel = query.id;
+
+      let [reqChannel, reqAudio, reqSeries ] = await Promise.all([
+        fetch(`https://api.audioboom.com/channels/${idChannel}`),
+        fetch(`https://api.audioboom.com/channels/${idChannel}/audio_clips`),
+        fetch(`https://api.audioboom.com/channels/${idChannel}/child_channels`)
+      ])
 /////////////////////////////////////////////////////////////////
 
-      let reqChannel = await fetch(`https://api.audioboom.com/channels/${idChannel}`)
       let dataChannel = await reqChannel.json()
       let channel = dataChannel.body.channel
 /////////////////////////////////////////////////////////////////
 
-      let reqAudio = await fetch(`https://api.audioboom.com/channels/${idChannel}/audio_clips`)
       let dataAudios = await reqAudio.json()
       let audioClips = dataAudios.body.audio_clips
 ////////////////////////////////////////////////////////////////
 
-let reqSeries = await fetch(`https://api.audioboom.com/channels/${idChannel}/child_channels`)
-let dataSeries = await reqSeries.json()
-let series = dataSeries.body.channels
+
+      let dataSeries = await reqSeries.json()
+      let series = dataSeries.body.channels
 
 /////////////////////////////////////////////////////////////////
 
@@ -24,7 +36,7 @@ let series = dataSeries.body.channels
     }
     render() {
         const { channel, audioClips, series } = this.props
-        return <div>
+        /* return <div>
             <header>PodCasts</header>
             <h1>{ channel.title }</h1>
 
@@ -80,6 +92,18 @@ let series = dataSeries.body.channels
                 background: white;
             }
             `}</style>
+        </div> */
+        return (
+            <Layout title={channel.title}>
+        <div className="banner" style={{ backgroundImage: `url(${channel.urls.banner_image.original})` }} />
+        <h1>{channel.title}</h1>
+        <h2>Series</h2>
+        <div className="channels">
+          <ChannelGrid channel={series} />
         </div>
+        <h2>Ultimos Podcasts</h2>
+        <PodcastList audioClips={audioClips} />
+      </Layout>
+        )
     }
 }
