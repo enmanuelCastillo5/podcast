@@ -12,7 +12,7 @@ const Layout = ({ children, title }) => (
       <Link href="/"><a>Podcasts</a></Link>
     </header>
     {children}
-    <style>{`
+    <style jsx>{`
     header {
       color: #fff;
       background: #8756ca;
