@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '../routes';
-import slug from '../helper/slug'
+import slug from '../helpers/slug'
 
 const ChannelGrid = ({ channels }) => (
 
@@ -10,6 +10,7 @@ const ChannelGrid = ({ channels }) => (
         slug: slug(channel.title),
         id: channel.id
        }} key={channel.id}>
+
         <a className="channel">
           <img src={ channel.urls.logo_image.original } alt=""/>
           <h2>{ channel.title }</h2>
